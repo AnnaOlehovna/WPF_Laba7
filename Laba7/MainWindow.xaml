@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Laba7"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="600">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="Background" Value="BlanchedAlmond"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel VerticalAlignment="Center">
+            <Button Name="btnShowList" Click="BtnShowList_Click" Content="Show List"/>
+            <Button Name="btnAddCar" Click="BtnAddCar_Click" Content="Add Car"/>
+            <Button Name="btnEditCar" Click="BtnEditCar_Click" Content="Edit Car"/>
+            <Button Name="btnDeleteCar" Click="BtnDeleteCar_Click" Content="Delete Car"/>
+        </StackPanel>
+
+        <ListBox Grid.Column="1" Name="lbCars" ItemsSource="{Binding}"/>
+
     </Grid>
 </Window>

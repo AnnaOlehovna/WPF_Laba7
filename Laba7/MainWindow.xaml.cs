@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,62 @@ namespace Laba7
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        ObservableCollection<Car> carList;
+
         public MainWindow()
         {
             InitializeComponent();
+            carList = new ObservableCollection<Car>();
+            lbCars.DataContext = carList;
+        }
+
+        private void BtnShowList_Click(object sender, RoutedEventArgs e)
+        {
+            LoadData();
+        }
+
+        private void BtnAddCar_Click(object sender, RoutedEventArgs e)
+        {
+            Car newCar = new Car()
+            {
+                brand = "Mazda",
+                model = "sdv",
+                year = 2001,
+                Color = "green"
+            };
+            newCar.InsertCar();
+            LoadData();
+        }
+
+        private void BtnEditCar_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbCars.SelectedItem is Car)
+            {
+                var selectedCar = (Car)lbCars.SelectedItem;
+                selectedCar.Color = "black";
+                selectedCar.UpdateCar();
+                LoadData();
+            }
+        }
+
+        private void BtnDeleteCar_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbCars.SelectedItem is Car)
+            {
+                var selectedCar = (Car)lbCars.SelectedItem;
+                Car.DeleteCarById(selectedCar.carId);
+                LoadData();
+            }
+        }
+
+        private void LoadData()
+        {
+            carList.Clear();
+            foreach (Car car in Car.GetAllCars())
+            {
+                carList.Add(car);
+            }
         }
     }
 }
